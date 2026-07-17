@@ -27,6 +27,9 @@
   --black: #f0f0f0;
   --shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
+[data-theme="dark"] .logo-img {
+  background: #ffffff;
+}
 * {
   margin: 0;
   padding: 0;
