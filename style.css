@@ -1316,20 +1316,6 @@ button {
   transition: var(--transition);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
-.contact-info-card--centered {
-  max-width: 440px;
-  margin: 0 auto 20px;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 32px 28px;
-}
-.contact-info-card--centered .contact-info-icon {
-  margin: 0 auto;
-}
-.contact-info-card--centered > div:last-child {
-  width: 100%;
-}
 .contact-info-card:hover {
   transform: translateX(6px);
   box-shadow: var(--shadow);
@@ -1345,6 +1331,7 @@ button {
   justify-content: center;
   color: #fff;
   font-size: 1.3rem;
+  box-shadow: 0 8px 18px rgba(99, 109, 61, 0.18);
 }
 .contact-info-card h4 {
   font-family: "Inter", sans-serif;

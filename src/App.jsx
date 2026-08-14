@@ -1335,7 +1335,7 @@ export default function App() {
             <div className="reveal-left">
               {contactInfo.map((item, index) => (
                 <div
-                  className={`contact-info-card ${item.icon.includes("whatsapp") ? "contact-info-icon--whatsapp" : ""} ${item.label === "Email" ? "contact-info-card--centered" : ""}`}
+                  className={`contact-info-card ${item.icon.includes("whatsapp") ? "contact-info-icon--whatsapp" : ""}`}
                   key={index}
                 >
                   <div
