@@ -1,8 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
+import emailjs from "emailjs-com";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "";
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "";
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "";
+const ownerEmail = import.meta.env.VITE_OWNER_EMAIL || "fielevent@gmail.com";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -165,105 +171,6 @@ const whyCards = [
     icon: "fa-gem",
     title: "Luxury Experience",
     text: "Premium service that exceeds expectations at every touchpoint.",
-  },
-];
-
-const portfolioItems = [
-  {
-    category: "weddings",
-    title: "Tuscany Garden Wedding",
-    location: "Tuscany, Italy",
-    desc: "A romantic outdoor ceremony with ivory roses and eucalyptus under golden sunset skies.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/1374d7ef0-9573-49b1-81fc-17f2635a7b46.png",
-  },
-  {
-    category: "corporate",
-    title: "Annual Gala Night",
-    location: "New York, USA",
-    desc: "A sophisticated corporate gala celebrating company achievements with black and gold elegance.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/1b341c313-a68b-4a94-893a-ac5a799db224.png",
-  },
-  {
-    category: "birthdays",
-    title: "Golden Milestone Birthday",
-    location: "Paris, France",
-    desc: "A luxurious 50th birthday celebration with champagne tower and gold accents.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/1a6647fc2-bf91-4875-84bc-b37d20852970.png",
-  },
-  {
-    category: "luxury",
-    title: "Private Dinner Soirée",
-    location: "London, UK",
-    desc: "An intimate luxury dinner with candlelight and bespoke floral arrangements.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/149a5458e-1499-4633-8393-c260b4463f17.png",
-  },
-  {
-    category: "social",
-    title: "Elegant Bridal Shower",
-    location: "Milan, Italy",
-    desc: "A charming bridal shower with ivory florals and vintage gold accents.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/1fef6c745-9049-4127-93ef-7d4aeacc5406.png",
-  },
-  {
-    category: "corporate",
-    title: "Tech Innovation Summit",
-    location: "Dubai, UAE",
-    desc: "A cutting-edge conference with modern stage design and premium branding.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/187eb1cd3-2939-47d6-832d-70dd6eec4c7c.png",
-  },
-  {
-    category: "luxury",
-    title: "Golden Anniversary Gala",
-    location: "Monaco",
-    desc: "A spectacular luxury anniversary event with gold balloons and floral elegance.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/15825c53c-73e9-4912-b334-7cdea5c5da42.png",
-  },
-  {
-    category: "weddings",
-    title: "Emerald Wedding Reception",
-    location: "Santorini, Greece",
-    desc: "A breathtaking wedding reception with emerald velvet and gold accents.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/1f3296692-5605-4947-bc75-73a29d900800.png",
-  },
-  {
-    category: "corporate",
-    title: "Product Launch Event",
-    location: "Los Angeles, USA",
-    desc: "A modern product launch with olive and gold branded stage design.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/171d3dcf5-d5dc-4462-977d-d2f8c6988eb2.png",
-  },
-  {
-    category: "weddings",
-    title: "Ivory & Olive Wedding",
-    location: "Provence, France",
-    desc: "A romantic wedding with ivory roses, olive branches, and eucalyptus.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/1295c583f-3494-45ee-99a3-a2c006fa63f9.png",
-  },
-  {
-    category: "social",
-    title: "Grand Ballroom Soirée",
-    location: "Vienna, Austria",
-    desc: "An elegant ballroom event with crystal chandeliers and floral installations.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/1534b5fa7-dd33-422c-a665-547b699d05fb.png",
-  },
-  {
-    category: "weddings",
-    title: "Floral Wedding Cake",
-    location: "Napa Valley, USA",
-    desc: "A three-tier wedding cake adorned with fresh peonies and gold leaf.",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/1e51849be-828e-4f09-b541-832983139a64.png",
   },
 ];
 
@@ -525,20 +432,20 @@ const contactInfo = [
   {
     icon: "fa-phone",
     label: "Phone",
-    value: "+234 903 800 8374",
+    value: "+234 903 900 8374",
     href: "tel:+2349038008374",
   },
   {
     icon: "fab fa-whatsapp",
     label: "WhatsApp",
-    value: "+234 903 800 8374",
+    value: "+234 903 900 8374",
     href: "https://wa.me/2349038008374",
   },
   {
     icon: "fa-envelope",
     label: "Email",
-    value: "hello@fielevents.com",
-    href: "mailto:hello@fielevents.com",
+    value: ownerEmail,
+    href: `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(ownerEmail)}&su=${encodeURIComponent("FIEL Events Enquiry")}`,
   },
   {
     icon: "fa-map-marker-alt",
@@ -575,8 +482,6 @@ export default function App() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeFilter, setActiveFilter] = useState("all");
-  const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxImage, setLightboxImage] = useState("");
   const [activeFaqIndex, setActiveFaqIndex] = useState(null);
   const [bookingValues, setBookingValues] = useState({
     name: "",
@@ -591,6 +496,7 @@ export default function App() {
   });
   const [bookingErrors, setBookingErrors] = useState({});
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
+  const [bookingError, setBookingError] = useState("");
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
 
@@ -604,10 +510,11 @@ export default function App() {
     );
   }, [searchQuery]);
 
-  const filteredPortfolio = useMemo(() => {
-    if (activeFilter === "all") return portfolioItems;
-    return portfolioItems.filter((item) => item.category === activeFilter);
-  }, [activeFilter]);
+  const toggleTheme = () =>
+    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+  const toggleMobile = () => setMobileActive((prev) => !prev);
+  const toggleSearch = () => setSearchOpen(true);
+  const closeSearch = () => setSearchOpen(false);
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
@@ -626,7 +533,6 @@ export default function App() {
     const handleKeyDown = (e) => {
       if (e.key === "Escape") {
         setSearchOpen(false);
-        setLightboxOpen(false);
       }
     };
     document.addEventListener("keydown", handleKeyDown);
@@ -675,17 +581,6 @@ export default function App() {
     setSearchQuery("");
   }, [searchOpen]);
 
-  const toggleTheme = () =>
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  const toggleMobile = () => setMobileActive((prev) => !prev);
-  const toggleSearch = () => setSearchOpen(true);
-  const closeSearch = () => setSearchOpen(false);
-  const openLightbox = (image) => {
-    setLightboxImage(image);
-    setLightboxOpen(true);
-  };
-  const closeLightbox = () => setLightboxOpen(false);
-
   const handleAnchorClick = (event, href) => {
     if (href.startsWith("#")) {
       event.preventDefault();
@@ -716,15 +611,48 @@ export default function App() {
     if (!bookingValues.phone.trim()) errors.phone = true;
     if (!bookingValues.eventType.trim()) errors.eventType = true;
     if (!bookingValues.date.trim()) errors.date = true;
+    if (!bookingValues.guests.trim()) errors.guests = true;
     if (!bookingValues.budget.trim()) errors.budget = true;
+    if (!bookingValues.location.trim()) errors.location = true;
     return errors;
   };
 
-  const handleBookingSubmit = (event) => {
+  const handleBookingSubmit = async (event) => {
     event.preventDefault();
     const errors = validateBooking();
     setBookingErrors(errors);
-    if (Object.keys(errors).length === 0) {
+    setBookingError("");
+
+    if (Object.keys(errors).length > 0) {
+      return;
+    }
+
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
+      setBookingError(
+        "Email service is not configured yet. Please add the EmailJS keys in the project environment file.",
+      );
+      return;
+    }
+
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: bookingValues.name,
+          email: bookingValues.email,
+          phone: bookingValues.phone,
+          event_type: bookingValues.eventType,
+          preferred_date: bookingValues.date,
+          guest_count: bookingValues.guests,
+          budget_range: bookingValues.budget,
+          event_location: bookingValues.location,
+          notes: bookingValues.notes || "No additional notes",
+          owner_email: ownerEmail,
+        },
+        EMAILJS_PUBLIC_KEY,
+      );
+
       setBookingSubmitted(true);
       setTimeout(() => {
         setBookingSubmitted(false);
@@ -739,7 +667,12 @@ export default function App() {
           location: "",
           notes: "",
         });
-      }, 3000);
+      }, 2000);
+    } catch (error) {
+      console.error("EmailJS booking error:", error);
+      setBookingError(
+        "Something went wrong while sending your consultation request. Please try again or email fielevent@gmail.com directly.",
+      );
     }
   };
 
@@ -851,11 +784,11 @@ export default function App() {
                 <i className="fas fa-calendar-check" /> Book a Consultation
               </a>
               <a
-                href="#portfolio"
+                href="#services"
                 className="btn hero-btn-outline"
-                onClick={(e) => handleAnchorClick(e, "#portfolio")}
+                onClick={(e) => handleAnchorClick(e, "#services")}
               >
-                <i className="fas fa-images" /> View Our Portfolio
+                <i className="fas fa-images" /> Our Services
               </a>
             </div>
           </div>
@@ -1022,50 +955,17 @@ export default function App() {
             ))}
           </div>
           <div className="portfolio-grid" id="portfolioGrid">
-            {filteredPortfolio.map((item) => (
-              <div
-                className="portfolio-item reveal"
-                data-category={item.category}
-                key={item.title}
-                onClick={() => openLightbox(item.image)}
-              >
-                <img src={item.image} alt={item.title} loading="lazy" />
-                <div className="portfolio-zoom">
-                  <i className="fas fa-expand" />
-                </div>
-                <div className="portfolio-overlay">
-                  <span className="portfolio-category">
-                    {item.category.charAt(0).toUpperCase() +
-                      item.category.slice(1)}
-                  </span>
-                  <h3>{item.title}</h3>
-                  <div className="portfolio-location">
-                    <i className="fas fa-map-marker-alt" /> {item.location}
-                  </div>
-                  <p className="portfolio-desc">{item.desc}</p>
-                </div>
-              </div>
-            ))}
+            <div
+              className="text-center reveal"
+              style={{ gridColumn: "1 / -1" }}
+            >
+              <p style={{ color: "var(--gray)", fontSize: "1.1rem" }}>
+                No event yet
+              </p>
+            </div>
           </div>
         </div>
       </section>
-
-      {lightboxOpen && (
-        <div
-          className="lightbox active"
-          id="lightbox"
-          onClick={(e) => e.target.id === "lightbox" && closeLightbox()}
-        >
-          <button
-            className="lightbox-close"
-            id="lightboxClose"
-            onClick={closeLightbox}
-          >
-            <i className="fas fa-times" />
-          </button>
-          <img id="lightboxImg" src={lightboxImage} alt="Portfolio" />
-        </div>
-      )}
 
       <section className="section testimonials-section" id="testimonials">
         <div className="container">
@@ -1191,6 +1091,7 @@ export default function App() {
                   name: "guests",
                   type: "number",
                   placeholder: "e.g., 100",
+                  required: true,
                 },
                 {
                   label: "Budget Range",
@@ -1203,6 +1104,7 @@ export default function App() {
                   name: "location",
                   type: "text",
                   placeholder: "City, Country",
+                  required: true,
                 },
               ].map((field) => (
                 <div
@@ -1260,12 +1162,27 @@ export default function App() {
                 />
               </div>
             </div>
-            <button type="submit" className="form-submit">
+            <button
+              type="submit"
+              className="form-submit"
+              disabled={bookingSubmitted}
+            >
               <i className="fas fa-calendar-check" />{" "}
               {bookingSubmitted
-                ? "Consultation Booked Successfully!"
+                ? "Consultation Request Sent!"
                 : "Book Consultation"}
             </button>
+            {bookingError && (
+              <p
+                style={{
+                  color: "#e74c3c",
+                  marginTop: "12px",
+                  textAlign: "center",
+                }}
+              >
+                {bookingError}
+              </p>
+            )}
           </form>
         </div>
       </section>
@@ -1418,7 +1335,7 @@ export default function App() {
             <div className="reveal-left">
               {contactInfo.map((item, index) => (
                 <div
-                  className={`contact-info-card ${item.icon.includes("whatsapp") ? "contact-info-icon--whatsapp" : ""}`}
+                  className={`contact-info-card ${item.icon.includes("whatsapp") ? "contact-info-icon--whatsapp" : ""} ${item.label === "Email" ? "contact-info-card--centered" : ""}`}
                   key={index}
                 >
                   <div
@@ -1569,11 +1486,11 @@ export default function App() {
               </form>
               <div className="footer-contact-item">
                 <i className="fas fa-envelope" />
-                <a href="mailto:hello@fielevents.com">hello@fielevents.com</a>
+                <a href={`mailto:${ownerEmail}`}>{ownerEmail}</a>
               </div>
               <div className="footer-contact-item">
                 <i className="fas fa-phone" />
-                <a href="tel:+2349038008374">+234 903 800 8374</a>
+                <a href="tel:+2349038008374">+234 903 900 8374</a>
               </div>
             </div>
           </div>
