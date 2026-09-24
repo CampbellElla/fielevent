@@ -414,6 +414,7 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 12%;
   transition: transform 0.8s ease;
 }
 .about-image:hover img {
@@ -702,13 +703,16 @@ button {
   transform: translateY(-6px);
   box-shadow: var(--shadow-lg);
 }
-.portfolio-item img {
+.portfolio-item img,
+.portfolio-item video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 0.8s ease;
 }
-.portfolio-item:hover img {
+.portfolio-item:hover img,
+.portfolio-item:hover video {
   transform: scale(1.1);
 }
 .portfolio-overlay {
@@ -789,10 +793,32 @@ button {
 .lightbox.active {
   display: flex;
 }
-.lightbox img {
-  max-width: 90%;
+.lightbox img,
+.lightbox video {
+  max-width: 90vw;
   max-height: 85vh;
   border-radius: var(--radius);
+  display: block;
+}
+.lightbox-content {
+  width: min(1100px, 90vw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+.lightbox-caption {
+  width: min(900px, 90vw);
+  text-align: center;
+  color: #fff;
+}
+.lightbox-caption h3 {
+  margin: 10px 0 8px;
+  font-size: clamp(1.4rem, 2vw, 2.2rem);
+}
+.lightbox-caption p {
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
 }
 .lightbox-close {
   position: absolute;

@@ -15,7 +15,6 @@ const navLinks = [
   { label: "About", href: "#about" },
   { label: "Services", href: "#services" },
   { label: "Portfolio", href: "#portfolio" },
-  { label: "Testimonials", href: "#testimonials" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
   { label: "Blog", href: "#blog" },
@@ -171,37 +170,6 @@ const whyCards = [
     icon: "fa-gem",
     title: "Luxury Experience",
     text: "Premium service that exceeds expectations at every touchpoint.",
-  },
-];
-
-const testimonials = [
-  {
-    text: '"FIEL Events transformed our wedding into a fairytale. Every detail was perfect, from the floral arrangements to the timing. The team exceeded every expectation we had. Truly magical!"',
-    author: "Sophia Anderson",
-    role: "Wedding • Tuscany",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/197d15489-7e57-4d6e-a153-e1e33c5c7118.png",
-  },
-  {
-    text: '"Our corporate gala was a huge success thanks to FIEL. The professionalism, creativity, and flawless execution were outstanding. Our clients were impressed and our team was stress-free."',
-    author: "Michael Chen",
-    role: "Corporate Gala • NYC",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/1a5a4dea8-a480-401a-8d6c-b5cf11cc1226.png",
-  },
-  {
-    text: '"My 60th birthday celebration was beyond anything I could have imagined. The attention to detail, the elegant decor, the seamless coordination — FIEL made it absolutely perfect."',
-    author: "Eleanor Whitmore",
-    role: "Birthday • Paris",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/1fa5aac90-c82e-4ffc-a235-9db8ebdcbf13.png",
-  },
-  {
-    text: '"From the first consultation to the final celebration, FIEL Events delivered an exceptional experience. Their creativity and professionalism are unmatched. Highly recommend!"',
-    author: "Olivia Martinez",
-    role: "Anniversary • Santorini",
-    image:
-      "https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/134d44c3f-8f81-412e-9818-58f37b835b5f.png",
   },
 ];
 
@@ -400,6 +368,81 @@ const blogPosts = [
   },
 ];
 
+const portfolioItems = [
+  {
+    id: "wedding-1",
+    category: "weddings",
+    title: "Garden Wedding Celebration",
+    description:
+      "A romantic outdoor wedding with elegant florals and a warm sunset atmosphere.",
+    mediaType: "video",
+    media: "/image/wedding-video1.mp4",
+  },
+  {
+    id: "wedding-2",
+    category: "weddings",
+    title: "Luxury Wedding Reception",
+    description:
+      "Sophisticated decor, refined details and a celebration designed to impress.",
+    mediaType: "image",
+    media: "/image/image3.JPEG",
+  },
+  {
+    id: "wedding-3",
+    category: "weddings",
+    title: "Classic Wedding Story",
+    description:
+      "A timeless celebration filled with layered textures, ceremony elegance and joyful moments.",
+    mediaType: "video",
+    media: "/image/wedding-video2.mp4",
+  },
+  {
+    id: "wedding-4",
+    category: "weddings",
+    title: "Wedding Day Elegance",
+    description:
+      "A refined wedding moment with grace, rich styling and an unforgettable atmosphere.",
+    mediaType: "video",
+    media: "/image/wedding-video4.mp4",
+  },
+  {
+    id: "wedding-5",
+    category: "weddings",
+    title: "Wedding Photo Story",
+    description:
+      "A warm and heartfelt wedding image that captures the beauty of the celebration.",
+    mediaType: "image",
+    media: "/image/image4.JPEG",
+  },
+  {
+    id: "birthday-1",
+    category: "birthdays",
+    title: "Birthday Brunch Experience",
+    description:
+      "A stylish birthday setting with curated decor, themed styling and warm, vibrant energy.",
+    mediaType: "video",
+    media: "/image/birthday-video2.mp4",
+  },
+  {
+    id: "birthday-2",
+    category: "birthdays",
+    title: "Golden Birthday Party",
+    description:
+      "A luxe birthday celebration with glamour, music and personalised finishing touches.",
+    mediaType: "video",
+    media: "/image/birthday-video3.mp4",
+  },
+  {
+    id: "birthday-3",
+    category: "birthdays",
+    title: "Birthday Celebration in Motion",
+    description:
+      "A joyful, vibrant birthday moment captured through movement, music and party energy.",
+    mediaType: "video",
+    media: "/image/birthdayvideo1.mp4",
+  },
+];
+
 const searchableContent = [
   { title: "Wedding Planning", section: "Services", url: "#services" },
   { title: "Birthday Parties", section: "Services", url: "#services" },
@@ -422,7 +465,6 @@ const searchableContent = [
   { title: "Pricing Packages", section: "Pricing", url: "#pricing" },
   { title: "About FIEL Events", section: "About", url: "#about" },
   { title: "Portfolio", section: "Portfolio", url: "#portfolio" },
-  { title: "Testimonials", section: "Testimonials", url: "#testimonials" },
   { title: "Contact Us", section: "Contact", url: "#contact" },
   { title: "FAQ", section: "FAQ", url: "#faq" },
   { title: "Blog", section: "Blog", url: "#blog" },
@@ -461,10 +503,7 @@ const contactInfo = [
 
 const socialLinks = [
   { icon: "fab fa-instagram", label: "Instagram", href: "#" },
-  { icon: "fab fa-facebook-f", label: "Facebook", href: "#" },
   { icon: "fab fa-tiktok", label: "TikTok", href: "#" },
-  { icon: "fab fa-linkedin-in", label: "LinkedIn", href: "#" },
-  { icon: "fab fa-pinterest-p", label: "Pinterest", href: "#" },
 ];
 
 function scrollToHash(hash) {
@@ -499,6 +538,7 @@ export default function App() {
   const [bookingError, setBookingError] = useState("");
   const [newsletterEmail, setNewsletterEmail] = useState("");
   const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+  const [lightboxMedia, setLightboxMedia] = useState(null);
 
   const filteredSearchResults = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
@@ -509,6 +549,11 @@ export default function App() {
         item.section.toLowerCase().includes(query),
     );
   }, [searchQuery]);
+
+  const filteredPortfolioItems = useMemo(() => {
+    if (activeFilter === "all") return portfolioItems;
+    return portfolioItems.filter((item) => item.category === activeFilter);
+  }, [activeFilter]);
 
   const toggleTheme = () =>
     setTheme((prev) => (prev === "dark" ? "light" : "dark"));
@@ -691,6 +736,14 @@ export default function App() {
     if (event.target.id === "searchModal") closeSearch();
   };
 
+  const handlePortfolioMediaClick = (item) => {
+    setLightboxMedia(item);
+  };
+
+  const closeLightbox = () => {
+    setLightboxMedia(null);
+  };
+
   return (
     <>
       <nav className={`navbar ${scrolled ? "scrolled" : ""}`} id="navbar">
@@ -800,7 +853,7 @@ export default function App() {
           <div className="about-grid">
             <div className="about-image reveal-left">
               <img
-                src="https://image.qwenlm.ai/public_source/e94230fc-3969-43cb-a53a-933ce59a2cf7/14142030e-6d88-4d28-9af8-d977c1e384a8.png"
+                src="/image/image5.jpeg"
                 alt="FIEL Events Founder"
                 loading="lazy"
               />
@@ -955,61 +1008,53 @@ export default function App() {
             ))}
           </div>
           <div className="portfolio-grid" id="portfolioGrid">
-            <div
-              className="text-center reveal"
-              style={{ gridColumn: "1 / -1" }}
-            >
-              <p style={{ color: "var(--gray)", fontSize: "1.1rem" }}>
-                No event yet
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section testimonials-section" id="testimonials">
-        <div className="container">
-          <div className="text-center reveal">
-            <span className="section-label">Client Love</span>
-            <h2 className="section-title">What Our Clients Say</h2>
-            <p className="section-subtitle">
-              Hear from the wonderful people who trusted FIEL Events with their
-              most important celebrations.
-            </p>
-          </div>
-          <div className="swiper reveal">
-            <Swiper
-              modules={[Autoplay, Pagination]}
-              slidesPerView={1}
-              spaceBetween={30}
-              loop
-              pagination={{ clickable: true }}
-              autoplay={{ delay: 5000, disableOnInteraction: false }}
-              breakpoints={{
-                768: { slidesPerView: 2 },
-                1024: { slidesPerView: 3 },
-              }}
-            >
-              {testimonials.map((item) => (
-                <SwiperSlide key={item.author}>
-                  <div className="testimonial-card">
-                    <div className="testimonial-stars">
-                      {[...Array(5)].map((_, index) => (
-                        <i key={index} className="fas fa-star" />
-                      ))}
-                    </div>
-                    <p className="testimonial-text">{item.text}</p>
-                    <div className="testimonial-author">
-                      <img src={item.image} alt="Client" loading="lazy" />
-                      <div>
-                        <h4>{item.author}</h4>
-                        <span>{item.role}</span>
-                      </div>
-                    </div>
+            {filteredPortfolioItems.length === 0 ? (
+              <div
+                className="text-center reveal"
+                style={{ gridColumn: "1 / -1" }}
+              >
+                <p style={{ color: "var(--gray)", fontSize: "1.1rem" }}>
+                  No event yet
+                </p>
+              </div>
+            ) : (
+              filteredPortfolioItems.map((item) => (
+                <article
+                  className="portfolio-item reveal"
+                  key={item.id}
+                  onClick={() => handlePortfolioMediaClick(item)}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      handlePortfolioMediaClick(item);
+                    }
+                  }}
+                >
+                  {item.mediaType === "video" ? (
+                    <video
+                      src={item.media}
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="portfolio-media"
+                    />
+                  ) : (
+                    <img src={item.media} alt={item.title} loading="lazy" />
+                  )}
+                  <div className="portfolio-overlay">
+                    <span className="portfolio-category">{item.category}</span>
+                    <h3>{item.title}</h3>
+                    <p className="portfolio-desc">{item.description}</p>
                   </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+                  <div className="portfolio-zoom">
+                    <i className="fas fa-search-plus" />
+                  </div>
+                </article>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -1311,7 +1356,11 @@ export default function App() {
                   </div>
                   <h3>{post.title}</h3>
                   <p>{post.text}</p>
-                  <a href="#" className="blog-read">
+                  <a
+                    href="#booking"
+                    className="blog-read"
+                    onClick={(e) => handleAnchorClick(e, "#booking")}
+                  >
                     Read More →
                   </a>
                 </div>
@@ -1416,28 +1465,23 @@ export default function App() {
             <div>
               <h4>Quick Links</h4>
               <ul className="footer-links">
-                {[
-                  "Home",
-                  "About Us",
-                  "Services",
-                  "Portfolio",
-                  "Testimonials",
-                  "Contact",
-                ].map((text) => (
-                  <li key={text}>
-                    <a
-                      href={`#${text === "Home" ? "home" : text.toLowerCase().replace(/\s+/g, "-")}`}
-                      onClick={(e) =>
-                        handleAnchorClick(
-                          e,
-                          `#${text === "Home" ? "home" : text.toLowerCase().replace(/\s+/g, "-")}`,
-                        )
-                      }
-                    >
-                      {text}
-                    </a>
-                  </li>
-                ))}
+                {["Home", "About Us", "Services", "Portfolio", "Contact"].map(
+                  (text) => (
+                    <li key={text}>
+                      <a
+                        href={`#${text === "Home" ? "home" : text.toLowerCase().replace(/\s+/g, "-")}`}
+                        onClick={(e) =>
+                          handleAnchorClick(
+                            e,
+                            `#${text === "Home" ? "home" : text.toLowerCase().replace(/\s+/g, "-")}`,
+                          )
+                        }
+                      >
+                        {text}
+                      </a>
+                    </li>
+                  ),
+                )}
               </ul>
             </div>
             <div>
@@ -1524,6 +1568,42 @@ export default function App() {
           <span className="tooltip">Book Consultation</span>
         </a>
       </div>
+
+      {lightboxMedia && (
+        <div className="lightbox active" onClick={closeLightbox}>
+          <button
+            type="button"
+            className="lightbox-close"
+            aria-label="Close preview"
+            onClick={closeLightbox}
+          >
+            <i className="fas fa-times" />
+          </button>
+          <div
+            className="lightbox-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {lightboxMedia.mediaType === "video" ? (
+              <video
+                src={lightboxMedia.media}
+                controls
+                autoPlay
+                playsInline
+                className="lightbox-media"
+              />
+            ) : (
+              <img src={lightboxMedia.media} alt={lightboxMedia.title} />
+            )}
+            <div className="lightbox-caption">
+              <span className="portfolio-category">
+                {lightboxMedia.category}
+              </span>
+              <h3>{lightboxMedia.title}</h3>
+              <p>{lightboxMedia.description}</p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {searchOpen && (
         <div
