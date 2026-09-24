@@ -376,7 +376,8 @@ const portfolioItems = [
     description:
       "A romantic outdoor wedding with elegant florals and a warm sunset atmosphere.",
     mediaType: "video",
-    media: "/image/wedding-video1.mp4",
+    media:
+      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/wedding-video1",
   },
   {
     id: "wedding-2",
@@ -394,7 +395,8 @@ const portfolioItems = [
     description:
       "A timeless celebration filled with layered textures, ceremony elegance and joyful moments.",
     mediaType: "video",
-    media: "/image/wedding-video2.mp4",
+    media:
+      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/wedding-video2",
   },
   {
     id: "wedding-4",
@@ -403,7 +405,8 @@ const portfolioItems = [
     description:
       "A refined wedding moment with grace, rich styling and an unforgettable atmosphere.",
     mediaType: "video",
-    media: "/image/wedding-video4.mp4",
+    media:
+      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/wedding-video4",
   },
   {
     id: "wedding-5",
@@ -421,7 +424,8 @@ const portfolioItems = [
     description:
       "A stylish birthday setting with curated decor, themed styling and warm, vibrant energy.",
     mediaType: "video",
-    media: "/image/birthday-video2.mp4",
+    media:
+      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/birthday-video2",
   },
   {
     id: "birthday-2",
@@ -430,7 +434,8 @@ const portfolioItems = [
     description:
       "A luxe birthday celebration with glamour, music and personalised finishing touches.",
     mediaType: "video",
-    media: "/image/birthday-video3.mp4",
+    media:
+      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/birthday-video3",
   },
   {
     id: "birthday-3",
@@ -439,7 +444,8 @@ const portfolioItems = [
     description:
       "A joyful, vibrant birthday moment captured through movement, music and party energy.",
     mediaType: "video",
-    media: "/image/birthdayvideo1.mp4",
+    media:
+      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/birthday-video1",
   },
 ];
 
