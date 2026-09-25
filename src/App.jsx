@@ -750,6 +750,14 @@ export default function App() {
     setLightboxMedia(null);
   };
 
+  const setAutoplayVideoRef = (node) => {
+    if (!node) return;
+    // iOS/Android only honor muted autoplay when set on the DOM node, not the JSX prop.
+    node.muted = true;
+    node.defaultMuted = true;
+    node.play?.().catch(() => {});
+  };
+
   return (
     <>
       <nav className={`navbar ${scrolled ? "scrolled" : ""}`} id="navbar">
@@ -1040,13 +1048,18 @@ export default function App() {
                 >
                   {item.mediaType === "video" ? (
                     <video
-                      src={item.media}
+                      ref={setAutoplayVideoRef}
                       autoPlay
                       muted
                       loop
                       playsInline
+                      webkit-playsinline="true"
+                      preload="auto"
+                      crossOrigin="anonymous"
                       className="portfolio-media"
-                    />
+                    >
+                      <source src={item.media} type="video/mp4" />
+                    </video>
                   ) : (
                     <img src={item.media} alt={item.title} loading="lazy" />
                   )}
@@ -1591,12 +1604,16 @@ export default function App() {
           >
             {lightboxMedia.mediaType === "video" ? (
               <video
-                src={lightboxMedia.media}
                 controls
                 autoPlay
                 playsInline
+                webkit-playsinline="true"
+                preload="auto"
+                crossOrigin="anonymous"
                 className="lightbox-media"
-              />
+              >
+                <source src={lightboxMedia.media} type="video/mp4" />
+              </video>
             ) : (
               <img src={lightboxMedia.media} alt={lightboxMedia.title} />
             )}
