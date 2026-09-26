@@ -445,7 +445,7 @@ const portfolioItems = [
       "A joyful, vibrant birthday moment captured through movement, music and party energy.",
     mediaType: "video",
     media:
-      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/birthday-video1",
+      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/birthday-video4",
   },
 ];
 
@@ -755,7 +755,21 @@ export default function App() {
     // iOS/Android only honor muted autoplay when set on the DOM node, not the JSX prop.
     node.muted = true;
     node.defaultMuted = true;
-    node.play?.().catch(() => {});
+
+    if (!node.dataset.visibilityObserved) {
+      node.dataset.visibilityObserved = "true";
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            node.play?.().catch(() => {});
+          } else {
+            node.pause?.();
+          }
+        },
+        { threshold: 0.5 },
+      );
+      observer.observe(node);
+    }
   };
 
   return (
@@ -1023,10 +1037,7 @@ export default function App() {
           </div>
           <div className="portfolio-grid" id="portfolioGrid">
             {filteredPortfolioItems.length === 0 ? (
-              <div
-                className="text-center reveal"
-                style={{ gridColumn: "1 / -1" }}
-              >
+              <div className="text-center" style={{ gridColumn: "1 / -1" }}>
                 <p style={{ color: "var(--gray)", fontSize: "1.1rem" }}>
                   No event yet
                 </p>
@@ -1034,7 +1045,7 @@ export default function App() {
             ) : (
               filteredPortfolioItems.map((item) => (
                 <article
-                  className="portfolio-item reveal"
+                  className="portfolio-item"
                   key={item.id}
                   onClick={() => handlePortfolioMediaClick(item)}
                   role="button"
@@ -1049,13 +1060,11 @@ export default function App() {
                   {item.mediaType === "video" ? (
                     <video
                       ref={setAutoplayVideoRef}
-                      autoPlay
                       muted
                       loop
                       playsInline
                       webkit-playsinline="true"
-                      preload="auto"
-                      crossOrigin="anonymous"
+                      preload="metadata"
                       className="portfolio-media"
                     >
                       <source src={item.media} type="video/mp4" />
@@ -1609,7 +1618,6 @@ export default function App() {
                 playsInline
                 webkit-playsinline="true"
                 preload="auto"
-                crossOrigin="anonymous"
                 className="lightbox-media"
               >
                 <source src={lightboxMedia.media} type="video/mp4" />
