@@ -372,12 +372,12 @@ const portfolioItems = [
   {
     id: "wedding-1",
     category: "weddings",
-    title: "Garden Wedding Celebration",
+    title: "Mother's Day Wedding Celebration",
     description:
       "A romantic outdoor wedding with elegant florals and a warm sunset atmosphere.",
     mediaType: "video",
-    media:
-      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/wedding-video1",
+    media: "https://www.youtube.com/embed/XyiPy_4eRTw",
+    mediaOrientation: "portrait",
   },
   {
     id: "wedding-2",
@@ -395,8 +395,8 @@ const portfolioItems = [
     description:
       "A timeless celebration filled with layered textures, ceremony elegance and joyful moments.",
     mediaType: "video",
-    media:
-      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/wedding-video2",
+    media: "https://www.youtube.com/embed/Xil0sklT1VI",
+    mediaOrientation: "portrait",
   },
   {
     id: "wedding-4",
@@ -405,8 +405,8 @@ const portfolioItems = [
     description:
       "A refined wedding moment with grace, rich styling and an unforgettable atmosphere.",
     mediaType: "video",
-    media:
-      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/wedding-video4",
+    media: "https://www.youtube.com/embed/3PkAxck04sE",
+    mediaOrientation: "portrait",
   },
   {
     id: "wedding-5",
@@ -424,8 +424,8 @@ const portfolioItems = [
     description:
       "A stylish birthday setting with curated decor, themed styling and warm, vibrant energy.",
     mediaType: "video",
-    media:
-      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/birthday-video2",
+    media: "https://www.youtube.com/embed/G21Z8UEdpXs",
+    mediaOrientation: "portrait",
   },
   {
     id: "birthday-2",
@@ -434,8 +434,8 @@ const portfolioItems = [
     description:
       "A luxe birthday celebration with glamour, music and personalised finishing touches.",
     mediaType: "video",
-    media:
-      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/birthday-video3",
+    media: "https://www.youtube.com/embed/4BzSctV6Tqo",
+    mediaOrientation: "portrait",
   },
   {
     id: "birthday-3",
@@ -444,8 +444,8 @@ const portfolioItems = [
     description:
       "A joyful, vibrant birthday moment captured through movement, music and party energy.",
     mediaType: "video",
-    media:
-      "https://td0e3dowf3nq92tw.public.blob.vercel-storage.com/birthday-video4",
+    media: "https://www.youtube.com/embed/qIjgLrd3vAg",
+    mediaOrientation: "portrait",
   },
 ];
 
@@ -1058,17 +1058,35 @@ export default function App() {
                   }}
                 >
                   {item.mediaType === "video" ? (
-                    <video
-                      ref={setAutoplayVideoRef}
-                      muted
-                      loop
-                      playsInline
-                      webkit-playsinline="true"
-                      preload="metadata"
-                      className="portfolio-media"
-                    >
-                      <source src={item.media} type="video/mp4" />
-                    </video>
+                    item.media.includes("youtube.com/embed") ? (
+                      <div
+                        className={`portfolio-video-frame ${
+                          item.mediaOrientation === "landscape"
+                            ? "is-landscape"
+                            : "is-portrait"
+                        }`}
+                      >
+                        <iframe
+                          src={`${item.media}?autoplay=1&mute=1&loop=1&playlist=${item.media.split("/").pop()}&controls=0&modestbranding=1&rel=0&playsinline=1`}
+                          title={item.title}
+                          loading="lazy"
+                          allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                          allowFullScreen
+                        />
+                      </div>
+                    ) : (
+                      <video
+                        ref={setAutoplayVideoRef}
+                        muted
+                        loop
+                        playsInline
+                        webkit-playsinline="true"
+                        preload="metadata"
+                        className="portfolio-media"
+                      >
+                        <source src={item.media} type="video/mp4" />
+                      </video>
+                    )
                   ) : (
                     <img src={item.media} alt={item.title} loading="lazy" />
                   )}
@@ -1612,16 +1630,34 @@ export default function App() {
             onClick={(e) => e.stopPropagation()}
           >
             {lightboxMedia.mediaType === "video" ? (
-              <video
-                controls
-                autoPlay
-                playsInline
-                webkit-playsinline="true"
-                preload="auto"
-                className="lightbox-media"
-              >
-                <source src={lightboxMedia.media} type="video/mp4" />
-              </video>
+              lightboxMedia.media.includes("youtube.com/embed") ? (
+                <div
+                  className={`lightbox-video-wrapper ${
+                    lightboxMedia.mediaOrientation === "landscape"
+                      ? "is-landscape"
+                      : "is-portrait"
+                  }`}
+                >
+                  <iframe
+                    src={`${lightboxMedia.media}?autoplay=1&rel=0&modestbranding=1`}
+                    title={lightboxMedia.title}
+                    className="lightbox-media"
+                    allow="autoplay; accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
+              ) : (
+                <video
+                  controls
+                  autoPlay
+                  playsInline
+                  webkit-playsinline="true"
+                  preload="auto"
+                  className="lightbox-media"
+                >
+                  <source src={lightboxMedia.media} type="video/mp4" />
+                </video>
+              )
             ) : (
               <img src={lightboxMedia.media} alt={lightboxMedia.title} />
             )}
